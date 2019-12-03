@@ -1,0 +1,22 @@
+---
+opsman-configuration:
+  vsphere:
+    vcenter:
+      url: vcsa-01.haas-403.pez.pivotal.io
+      username: administrator@vsphere.local
+      password: ((vcenter-password))
+      datastore: LUN01
+      insecure: 1
+      datacenter: Datacenter
+      resource_pool: /Datacenter/host/Cluster/ResourcePool
+      folder: /Datacenter/pcf_vms
+    disk_type: thin
+    private_ip: 10.193.60.10
+    dns: 8.8.8.8
+    ntp: time.svc.pivotal.io
+    ssh_public_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDURfYwvutdX0GG0W9mAAOJbWp0Kx0fOCZknag+MwMTvNskqhJEv8FKkcsmr7lVmXSLixIUDwd3oBrcA5kqFX7ieTLrZTOM0HwVG/SaCNIS6bwGXEXLevJVyxGxMg1W+BA/D45NfFncec0wo0y8+BDkc3hWyPovUAshiQSCFIpXUtnEkLuFUC5HcwvaDs8EbGPEoyJwqyWbIn3cTcTiEhJpAOdyR+KPMDC1i3nZaWKizztC7ya4aOTnqKCOFeRnXp+wmKK0Mwby8UfnAKSw80B+LSxCLdCWSlKrLNVr0WMh34P66TTgzgyivCVWBhG6iZT8h5IKo8uAnj42YfWWUD7B Sudhindra@Admins-MacBook-Pro.local
+    hostname: opsmgr.haas-403.pez.pivotal.io
+    network: virtual-network           # vcenter network to deploy to
+    netmask: 255.255.255.192
+    gateway: 10.193.60.1
+    vm_name: ops-manager-foundation

@@ -1,3 +1,4 @@
 platform-automation-bucket: sample 
 credhub-server: https://credhub.haas-403.pez.pivotal.io
 opsman-url: https://opsmgr.haas-403.pez.pivotal.io
+pipeline-repo: git@github.com:sudhindrarao/pipeline-samples
