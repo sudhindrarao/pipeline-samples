@@ -53,4 +53,8 @@ jobs:
         config: interpolated-config 
     - task: create-vm
       image: platform-automation-image
-      file: platform-automation-tasks/tasks/create-vm.yml     
+      file: platform-automation-tasks/tasks/create-vm.yml
+      input_mapping:
+        config: interpolated-config
+        state: config
+        image: download-product     
