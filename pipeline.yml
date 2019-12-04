@@ -10,7 +10,7 @@ resources:
   type: pivnet
   source:
     product_slug: platform-automation
-    api_token: ((pivnet-refresh-token))
+    api_token: ((pivnet-token))
 - name: config
   type: git
   source:
@@ -39,7 +39,31 @@ jobs:
         CREDHUB_CLIENT: ((credhub-client))
         CREDHUB_SECRET: ((credhub-secret))
         CREDHUB_SERVER: https://credhub.haas-403.pez.pivotal.io:8844
-        PREFIX: /concourse/main/foundation
+        PREFIX: /concourse/main
+        CREDHUB_CA_CERT: |
+          -----BEGIN CERTIFICATE-----
+          MIIDzjCCAragAwIBAgIVAJYi4Fz+kySerE7ynjQAh/bY5rJIMA0GCSqGSIb3DQEB
+          CwUAMB8xCzAJBgNVBAYTAlVTMRAwDgYDVQQKDAdQaXZvdGFsMB4XDTE5MTAxNzAx
+          MjIyOFoXDTIxMTAxNzAxMjIyOFowRTELMAkGA1UEBhMCVVMxEDAOBgNVBAoMB1Bp
+          dm90YWwxJDAiBgNVBAMMG3VhYS5oYWFzLTQwMy5wZXoucGl2b3RhbC5pbzCCASIw
+          DQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAK3Sx/bEONKuR9mknuQ6SrDT1t91
+          EQ1g696R7v48yHcMx0FvB7aqoNu1adxTpgkL5I7RH1z17RF9kBlwZFk9l4cP/ZrU
+          BVSRXZo1iN2FNiOjfmGiiCbs0huaCj4lP+In5GgPKARm/avOnBRVAY3+sjHqt9xl
+          H5x+iD9zbDkQ0r53mfeLfCDg8elFkLHAjt0BtEhkA+YepVameML43BZ0u/WFJ/LP
+          SeFVQewQoO9wXMX5Z6+RcEsacMml3wQuCVJTrOhr7PLCE2S9Sdh/9wNMk9JsTTwB
+          zM0KiKdYYXwn2iO1wBMU1v02HILdw7YjRXmewQoChqInU0YuF3+ZJ4XtmsMCAwEA
+          AaOB2jCB1zAdBgNVHQ4EFgQUyVX1oPI2ffyeEGQKzHpOKYJJ+vMwHwYDVR0jBBgw
+          FoAU6zK9VR6UJDSuqXgRaX/VZ/Zhe7swHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsG
+          AQUFBwMBMA4GA1UdDwEB/wQEAwIHgDBmBgNVHREEXzBdght1YWEuaGFhcy00MDMu
+          cGV6LnBpdm90YWwuaW+CH2NyZWRodWIuaGFhcy00MDMucGV6LnBpdm90YWwuaW+C
+          HXBsYW5lLmhhYXMtNDAzLnBlei5waXZvdGFsLmlvMA0GCSqGSIb3DQEBCwUAA4IB
+          AQBxZ/U0aa6lA35C9f9xxNFrU6WOuwC1dHfVaub427/cVfDyDYiD1SowzlUATko+
+          OeYYLvf5L6iLDShtPWdorGIvD65qdcHx4LKg4SIU5seWyZJoIHGeS2wZ/SySbuaQ
+          JXWBEknw+e0w7gFECM45i6bNlUTap07HuoG6Ch7dJcEs9cwI6RXXrtk+gww0Tv7y
+          8xeJVpe4tg668C5ZVuUr2nrcYJ5RiTGd5asJr79Hjjkr6Y2izNx8nZDr96uSPq2x
+          eafMfwlNuXF91nzAflnWqcxE6FFrnz+xr6CkYTtwp2xkUsk7DFuZveG2HKzF0gqn
+          pA6FamumUOJMuUmJSZ7wsqn+
+          -----END CERTIFICATE-----
       input_mapping:
         files: config
       output_mapping:
@@ -48,9 +72,10 @@ jobs:
       image: platform-automation-image
       file: platform-automation-tasks/tasks/download-product.yml
       params:
-        CONFIG_FILE:  download-ops-manager.yml
+        CONFIG_FILE: download-ops-manager.yml
       input_mapping:
         config: interpolated-config 
+
     - task: create-vm
       image: platform-automation-image
       file: platform-automation-tasks/tasks/create-vm.yml
